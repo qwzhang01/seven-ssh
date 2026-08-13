@@ -1,107 +1,145 @@
-# 张艾温 - 个人简历网站
+# SevenSSH
 
-这是一个使用 Nuxt.js 构建的个人简历网站，支持中英文双语切换。
+> A modern, secure SSH client built with Tauri — fast, lightweight, and privacy-first.
 
-## 在线预览
+![SevenSSH Screenshot](docs/screenshot-placeholder.png)
 
-🌐 [查看在线简历](https://qwzhang01.github.io/resume/)
+## Features
 
-## 功能特性
+- **SSH Terminal** — Full-featured terminal with xterm.js, split panes, and tabs
+- **SFTP File Manager** — Drag-and-drop file transfers with progress tracking
+- **AI Assistant** — Context-aware command suggestions (local Ollama or OpenAI)
+- **Security First** — Master password encryption, biometric unlock, session locking
+- **SSH Key Management** — Generate, import, and manage SSH keys
+- **Connection Import** — Import from `~/.ssh/config` with one click
+- **Cross-Platform** — macOS, Windows, and Linux support
+- **Auto-Update** — Built-in update mechanism for seamless upgrades
+- **Keyboard-Driven** — Extensive shortcuts for power users
 
-- 📱 响应式设计，适配各种设备
-- 🌍 中英文双语支持
-- 🎨 现代化 UI 设计
-- ⚡ 基于 Nuxt.js 的高性能
-- 🚀 自动部署到 GitHub Pages
+## Quick Start
 
-## 技术栈
+### Prerequisites
 
-- **框架**: Nuxt.js 4.x
-- **语言**: Vue 3 + TypeScript
-- **国际化**: @nuxtjs/i18n
-- **部署**: GitHub Pages + GitHub Actions
+- [Node.js](https://nodejs.org/) 20+
+- [pnpm](https://pnpm.io/) 9+
+- [Rust](https://www.rust-lang.org/tools/install) (stable toolchain)
+- Platform-specific dependencies (see [Development](#development))
 
-## 本地开发
-
-### 安装依赖
-
-```bash
-npm install
-```
-
-### 启动开发服务器
+### Install & Run
 
 ```bash
-npm run dev
+# Clone the repository
+git clone https://github.com/OWNER/sevenssh.git
+cd sevenssh
+
+# Install dependencies
+pnpm install
+
+# Start in development mode
+pnpm tauri dev
 ```
 
-访问 `http://localhost:3001` 查看网站。
-
-### 构建生产版本
+### Build for Production
 
 ```bash
-npm run generate
+pnpm tauri build
 ```
 
-## 部署到 GitHub Pages
+Build artifacts will be in `src-tauri/target/release/bundle/`.
 
-### 1. 推送代码到 GitHub
+## Tech Stack
+
+| Layer | Technology |
+|-------|-----------|
+| Framework | [Tauri 2](https://v2.tauri.app/) |
+| Frontend | [Vue 3](https://vuejs.org/) + TypeScript |
+| UI Library | [TDesign](https://tdesign.tencent.com/vue-next/) |
+| Terminal | [xterm.js](https://xtermjs.org/) 5 |
+| Backend | Rust (async SSH via `russh`) |
+| State | [Pinia](https://pinia.vuejs.org/) |
+| Build | [Vite](https://vitejs.dev/) 6 |
+
+## Keyboard Shortcuts
+
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl/Cmd + T` | New tab |
+| `Ctrl/Cmd + W` | Close tab |
+| `Ctrl/Cmd + Tab` | Next tab |
+| `Ctrl/Cmd + Shift + Tab` | Previous tab |
+| `Ctrl/Cmd + D` | Split pane vertically |
+| `Ctrl/Cmd + Shift + D` | Split pane horizontally |
+| `Ctrl/Cmd + K` | Command palette |
+| `Ctrl/Cmd + L` | Lock session |
+| `Ctrl/Cmd + ,` | Settings |
+| `Ctrl/Cmd + Shift + F` | SFTP panel |
+
+## Development
+
+### System Dependencies
+
+**macOS:**
+```bash
+# Xcode Command Line Tools (includes required frameworks)
+xcode-select --install
+```
+
+**Ubuntu/Debian:**
+```bash
+sudo apt install \
+  libwebkit2gtk-4.1-dev \
+  libappindicator3-dev \
+  librsvg2-dev \
+  patchelf \
+  libssl-dev \
+  libgtk-3-dev \
+  libsoup-3.0-dev
+```
+
+**Windows:**
+- [Microsoft Visual Studio C++ Build Tools](https://visualstudio.microsoft.com/visual-cpp-build-tools/)
+- [WebView2](https://developer.microsoft.com/en-us/microsoft-edge/webview2/) (pre-installed on Windows 11)
+
+### Project Structure
+
+```
+sevenssh/
+├── src/                    # Vue frontend
+│   ├── components/         # UI components
+│   ├── views/              # Page views
+│   ├── stores/             # Pinia stores
+│   ├── services/           # Tauri command wrappers
+│   └── styles/             # Global styles & themes
+├── src-tauri/              # Rust backend
+│   ├── src/
+│   │   ├── commands/       # Tauri command handlers
+│   │   ├── ssh/            # SSH client implementation
+│   │   ├── sftp/           # SFTP session management
+│   │   ├── ai/             # AI integration (Ollama/OpenAI)
+│   │   ├── crypto/         # Encryption utilities
+│   │   └── db/             # SQLite database layer
+│   └── icons/              # App icons
+└── scripts/                # Build & utility scripts
+```
+
+### Available Scripts
 
 ```bash
-git add .
-git commit -m "feat: 添加 GitHub Pages 部署配置"
-git push origin main
+pnpm dev          # Start Vite dev server
+pnpm build        # Build frontend
+pnpm tauri dev    # Start Tauri in dev mode (frontend + backend)
+pnpm tauri build  # Production build
+pnpm lint         # Lint frontend code
+pnpm format       # Format frontend code
 ```
 
-### 2. 配置 GitHub Pages
-
-1. 进入你的 GitHub 仓库
-2. 点击 **Settings** 标签
-3. 在左侧菜单中找到 **Pages**
-4. 在 **Source** 部分选择 **GitHub Actions**
-5. 保存设置
-
-### 3. 自动部署
-
-每次推送到 `main` 分支时，GitHub Actions 会自动：
-- 安装依赖
-- 构建静态网站
-- 部署到 GitHub Pages
-
-部署完成后，你的网站将在 `https://qwzhang01.github.io/resume/` 可访问。
-
-## 自定义配置
-
-### 修改仓库名称
-
-如果你的仓库名称不是 `resume`，需要修改 `nuxt.config.ts` 中的 `baseURL`：
-
-```typescript
-app: {
-  baseURL: process.env.NODE_ENV === 'production' ? '/your-repo-name/' : '/',
-}
-```
-
-### 自定义域名
-
-如果你有自定义域名，可以在 `public` 目录下添加 `CNAME` 文件：
+### Icon Generation
 
 ```bash
-echo "your-domain.com" > public/CNAME
+# Generate all icon sizes from a 1024x1024 source PNG
+./scripts/generate-icons.sh path/to/icon-1024.png
 ```
 
-## 项目结构
+## License
 
-```
-resume/
-├── app/                 # 应用页面和组件
-├── i18n/               # 国际化文件
-├── public/             # 静态资源
-├── .github/workflows/  # GitHub Actions 配置
-├── nuxt.config.ts      # Nuxt 配置文件
-└── package.json        # 项目依赖
-```
-
-## 许可证
-
-MIT License
+[MIT](LICENSE)

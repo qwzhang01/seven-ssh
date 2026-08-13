@@ -1,21 +1,40 @@
 {
-  "name": "resume-site",
-  "type": "module",
+  "name": "sevenssh",
   "private": true,
+  "version": "0.1.0",
+  "type": "module",
   "scripts": {
-    "build": "nuxt build",
-    "dev": "nuxt dev",
-    "generate": "nuxt generate",
-    "preview": "nuxt preview",
-    "postinstall": "nuxt prepare"
+    "dev": "vite",
+    "build": "vue-tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "tauri": "tauri",
+    "lint": "eslint src --ext .ts,.vue --fix",
+    "format": "prettier --write src/"
   },
   "dependencies": {
-    "@nuxtjs/i18n": "^10.2.1",
-    "nuxt": "^4.2.2",
-    "vue": "^3.5.26",
-    "vue-router": "^4.6.4"
+    "@tauri-apps/api": "^2.2.0",
+    "@tauri-apps/plugin-dialog": "^2.2.0",
+    "@tauri-apps/plugin-fs": "^2.2.0",
+    "@tauri-apps/plugin-shell": "^2.2.0",
+    "@xterm/addon-fit": "^0.10.0",
+    "@xterm/addon-search": "^0.15.0",
+    "@xterm/addon-web-links": "^0.11.0",
+    "@xterm/addon-webgl": "^0.18.0",
+    "@xterm/xterm": "^5.5.0",
+    "monaco-editor": "^0.56.0",
+    "pinia": "^3.0.2",
+    "tdesign-vue-next": "^1.10.5",
+    "vue": "^3.5.13",
+    "vue-i18n": "^11.4.8",
+    "vue-router": "^4.5.0"
   },
   "devDependencies": {
-    "@types/node": "^25.0.3"
+    "@tauri-apps/cli": "^2.3.0",
+    "@vitejs/plugin-vue": "^5.2.3",
+    "typescript": "^5.8.3",
+    "unplugin-auto-import": "^19.1.2",
+    "unplugin-vue-components": "^28.4.1",
+    "vite": "^6.3.5",
+    "vue-tsc": "^2.2.8"
   }
 }

@@ -1,24 +1,24 @@
-# Nuxt dev/build outputs
-.output
-.data
-.nuxt
-.nitro
-.cache
-dist
+# dependencies
+node_modules/
 
-# Node dependencies
-node_modules
+# build output
+dist/
 
-# Logs
-logs
-*.log
+# Tauri
+src-tauri/target/
+src-tauri/gen/
 
-# Misc
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
 .DS_Store
-.fleet
-.idea
+Thumbs.db
 
-# Local env files
+# env
 .env
-.env.*
-!.env.example
+.env.local
